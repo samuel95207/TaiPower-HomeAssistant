@@ -1,0 +1,14 @@
+backfill:
+  name: Backfill history
+  description: >-
+    Fetch all available 15-minute history from Taipower and rebuild the
+    long-term statistics for every electricity number. Runs in the background;
+    a notification appears when it finishes. Roughly 1-2 seconds per day of
+    history is fetched from the Taipower servers.
+  fields:
+    start_date:
+      name: Start date
+      description: First day to fetch (days without data are skipped).
+      default: "2025-01-01"
+      selector:
+        date:

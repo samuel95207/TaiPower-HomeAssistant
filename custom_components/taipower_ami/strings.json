@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Taipower AMI server",
+        "description": "Connect to the Taipower AMI HTTP API server (Docker container or add-on).",
+        "data": {
+          "base_url": "Server URL"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the Taipower AMI server at that URL."
+    },
+    "abort": {
+      "already_configured": "This server is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "History backfill",
+        "description": "Saving this form fetches all available 15-minute history from the chosen date and rebuilds the long-term statistics. Days without data are skipped. A notification appears when it finishes.",
+        "data": {
+          "backfill_start_date": "Backfill from date"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+services:
+  taipower-ami:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: taipower-ami:latest
+    container_name: taipower_ami
+    volumes:
+      # Mount credentials.
+      - ../.env:/app/.env:ro
+      # Persist output data on the host.
+      - ../data:/app/data
+    ports:
+      # HTTP API port.
+      - "8000:8000"
+    # Default command runs the dashboard scraper. Uncomment below to run the API server instead:
+    # command: ["uvicorn", "taipower_ami.api:app", "--host", "0.0.0.0", "--port", "8000"]

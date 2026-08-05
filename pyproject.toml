@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "taipower-ami"
+version = "0.1.0"
+description = "Taipower AMI electricity-usage scraper with Turnstile automation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "python-dotenv",
+    "requests",
+]
+
+[project.optional-dependencies]
+camoufox = ["camoufox[geoip]"]
+api = ["fastapi", "uvicorn"]
+all = ["camoufox[geoip]", "fastapi", "uvicorn", "requests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/taipower_ami"]

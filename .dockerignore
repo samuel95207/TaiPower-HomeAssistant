@@ -1,0 +1,31 @@
+# Git
+.git/
+.gitignore
+
+# Python build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Data and credentials
+.env
+*.env
+data/
+browser-profile/
+browser-profile.bak/
+
+# Debug artifacts
+debug/
+*.png
+15min_debug*.html
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store

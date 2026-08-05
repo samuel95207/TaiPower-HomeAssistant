@@ -1,0 +1,12 @@
+{
+  "domain": "taipower_ami",
+  "name": "Taipower AMI",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": ["recorder"],
+  "documentation": "https://github.com/samuel95207/TaiPower-HomeAssistant",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "requirements": [],
+  "version": "0.7.0"
+}

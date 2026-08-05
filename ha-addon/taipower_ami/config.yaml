@@ -1,0 +1,20 @@
+name: Taipower AMI
+version: "0.7.0"
+slug: taipower_ami
+description: Taipower AMI scraper HTTP API (Camoufox)
+url: https://github.com/samuel95207/TaiPower-HomeAssistant
+arch:
+  - amd64
+  - aarch64
+startup: services
+init: false
+ports:
+  8000/tcp: 8000
+ports_description:
+  8000/tcp: Taipower AMI HTTP API
+options:
+  username: ""
+  password: ""
+schema:
+  username: str
+  password: password
