@@ -103,6 +103,28 @@ def parse_bill_rows(html: str) -> list[dict]:
     return rows
 
 
+_CUSTNO_RE = re.compile(r"^\s*(\d+)\s*(?:\((?P<alias>[^)]*)\))?\s*$")
+
+
+def _split_custno(value: Optional[str]) -> tuple[Optional[str], Optional[str]]:
+    """Split "01234567890 (範例別名)" into ("01234567890", "範例別名").
+
+    The bill *detail* page renders 電號 with the account alias appended, while
+    the overview/history tables and the AMI dashboard use the bare number.
+    Keying `details` on the raw string therefore splits one 電號 into two
+    entries in `fetch_bill_summary`, and breaks every consumer that looks a
+    customer up by number. Values that aren't "<digits> (<alias>)" are passed
+    through unchanged.
+    """
+    if not value:
+        return None, None
+    match = _CUSTNO_RE.match(value)
+    if not match:
+        return value.strip(), None
+    alias = (match.group("alias") or "").strip()
+    return match.group(1), alias or None
+
+
 def parse_detail(html: str) -> dict:
     """Parse the myebill-detail page into a structured dict."""
     tables = _tables(html)
@@ -119,10 +141,13 @@ def parse_detail(html: str) -> dict:
     period = pairs.get("計費期間", "")
     period_dates = re.findall(r"\d{2,3}年\d{1,2}月\d{1,2}日", period)
 
+    custno, custalias = _split_custno(pairs.get("電號"))
+
     detail: dict = {
         "bill_month": bill_month,
         "customer_name": pairs.get("用戶名稱"),
-        "customer_number": pairs.get("電號"),
+        "customer_number": custno,
+        "customer_alias": custalias,
         "supply_address": pairs.get("用電地址"),
         "tariff_type": pairs.get("電價種類"),
         "time_of_use": pairs.get("時間種類"),
